@@ -8,7 +8,7 @@ import cv2 as cv
 
 
 # Rodar o algoritmo de classificação por imagem
-# CrosswalkCNN.test("./test/crosswalk.jpg")
+# CrosswalkCNN.test("./test/r5.jpg")
 
 # Rodar o algoritmo de treinamento
 # CrosswalkCNN.training()

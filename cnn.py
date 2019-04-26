@@ -135,7 +135,7 @@ class CrosswalkCNN(object):
         casos de sucesso, falha e a média de acerto.
         """
 
-        __model = cls.__get_classfier()
+        __model = cls.__get_classifier()
 
         predictions = []
         qtd_crosswalk = 0
@@ -197,7 +197,7 @@ class CrosswalkCNN(object):
         # Pega a imagem
         img = cls.__img_processing(path)
 
-        __classifier = cls.__get_classfier()
+        __classifier = cls.__get_classifier()
 
         __prediction = __classifier.predict(img)
 
@@ -237,7 +237,7 @@ class CrosswalkCNN(object):
         return new_image
 
     @classmethod
-    def __get_classfier(cls):
+    def __get_classifier(cls):
         """
         Pega o modelo treinado de duas formas
         o modelo com estrutura e os melhores pesos e o modelo
