@@ -185,12 +185,12 @@ class CrosswalkCNN(object):
 
         crosswalk_array_list = []
         for path in crosswalk_path:
-            img = cls.img_processing(path)
+            img = cls.__img_processing(path)
             crosswalk_array_list.append(img)
 
         not_crosswalk_array_list = []
         for path in not_crosswalk_path:
-            img = cls.img_processing(path)
+            img = cls.__img_processing(path)
             not_crosswalk_array_list.append(img)
 
         return crosswalk_array_list, not_crosswalk_array_list
@@ -207,7 +207,7 @@ class CrosswalkCNN(object):
         """
 
         # Pega a imagem
-        img = cls.img_processing(path)
+        img = cls.__img_processing(path)
 
         __classifier = cls.__get_classfier()
 
@@ -227,7 +227,7 @@ class CrosswalkCNN(object):
         return text, is_crosswalk
 
     @classmethod
-    def img_processing(cls, img):
+    def __img_processing(cls, img):
         """
         Faz todo o processamento da imagem para
         ser usada no algoritmo.
@@ -256,20 +256,10 @@ class CrosswalkCNN(object):
         completo com os melhores pesos armazenados no checkpoint.
         """
 
-        # Pegando a estrutura da rede neural
-        with open('classifiers/crosswalk_structure.json', 'r') as json_file:
-            __structure = json_file.read()
-
-        # Criando o classificador
-        __classifier = model_from_json(__structure)
-
-        # Pegando os pesos da rede neural
-        __classifier.load_weights('classifiers/crosswalk_weights.h5')
-
         # Podemos também pegar o modelo do checkpoint
-        __checkpoint_classifier = load_model('classifiers/best_model.hdf5')
+        __classifier = load_model('crosswalk.hdf5')
 
-        return __checkpoint_classifier
+        return __classifier
 
     @classmethod
     def __create_cnn(cls):

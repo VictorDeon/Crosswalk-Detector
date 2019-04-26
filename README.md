@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## Uso
 
-Para usar o algoritmo treinado é só pegar o modelo na pasta **classifiers** e inserir no seu
-projeto de rede neural convolucional.
+Para usar o algoritmo treinado é só pegar o modelo **crosswalk.hdf5** e inserir no seu
+projeto de detecção de faixas usando redes neurais.
 
 Exemplo de uso no arquivo **main.py**
