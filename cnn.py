@@ -75,25 +75,21 @@ class CrosswalkCNN(object):
         # Irá salvar o modelo a cada ciclo (epoch) e armazenar o melhor
         # FILEPATH = Nome do modelo salvo a cada ciclo
         # MONITOR = Atributo que será monitorado
-        # SAVE_BEST_ONLY = Salva somente os melhores resultados, não os deixando ser sobrescritos por outros
         # VERBOSE = Aparecer na tela feedbacks sobre o checkpoint
         checkpointer = ModelCheckpoint(
-            filepath="classifiers/best_model.hdf5",
+            filepath="classifiers/weights.{epoch:02d}-{val_loss:.2f}.hdf5",
             monitor="val_loss",
-            verbose=1,
-            save_best_only=True
+            verbose=1
         )
 
         # Para o treinamento quando o mesmo não evolui mais
         # MONITOR = Atributo que será monitorado no treinamento
         # PATIENCE = Quantidade de vezes que deve ocorrer a não evolução até parar
-        # RESTORE_BEST_WEIGHTS = Restaura os melhores pesos que ocorreram no treinamento.
         # VERBOSE = Aparecer na tela feedbacks sobre a parada do treinamento
         early_stopping = EarlyStopping(
             monitor="val_loss",
             patience=2,
-            verbose=1,
-            restore_best_weights=True
+            verbose=1
         )
 
         # Fazer o treinamento
@@ -109,14 +105,6 @@ class CrosswalkCNN(object):
             validation_steps=1260,
             callbacks=[checkpointer, early_stopping]
         )
-
-        # Salvando a estrutura da rede neural
-        __json_classifier = __classifier.to_json()
-        with open('classifiers/crosswalk_structure.json', 'w') as json_file:
-            json_file.write(__json_classifier)
-
-        # Salvando os pesos da rede neural
-        __classifier.save_weights('classifiers/crosswalk_weights.h5')
 
     @classmethod
     def validate(cls):
@@ -257,7 +245,7 @@ class CrosswalkCNN(object):
         """
 
         # Podemos também pegar o modelo do checkpoint
-        __classifier = load_model('crosswalk.hdf5')
+        __classifier = load_model('classifiers/crosswalk.hdf5')
 
         return __classifier
 
